@@ -13,7 +13,7 @@ def log_this(log_info):
 app = Flask(__name__)
 CORS(app, max_age=404200, resources=r'/api/*', expose_headers='Content-Type: application/json', vary_header=True, methods='GET', origins='*')
 
-from config import HTML_DOC, PATH, HOST, PORT, CSV_LOG_OUTPUT_FILE, SUPPLY_BONDED
+from config import HTML_DOC, PATH, HOST, PORT, CSV_LOG_OUTPUT_FILE, SUPPLY_BONDED, SUPPLY_TOTAL_DENOM, SUPPLY_TOTAL_ALL
 
 @app.route("/api/rest/supply/apr")
 def get_api_apr():
@@ -27,13 +27,44 @@ def get_api_circulating():
 
 @app.route("/api/rest/supply/total")
 def get_api_total():
-    data = 'test'
-    return data  #return jsonify({currency: value})
+    url = SUPPLY_TOTAL_DENOM
+    parameters = {}
+    headers = {
+        'Accepts': 'application/json'
+    }
+    try:
+        session = Session()
+        session.headers.update(headers)
+        response = session.get(url, params=parameters)
+    except:
+        conn_error = 'An error occurred getting the BONDING data ' +  url
+        print("\n"+conn_error)
+        log_this(conn_error)
+    else:
+        info = json.loads(response.text)
+        total_denom = info["amount"]["amount"]
+        return str(int(total_denom) / 1000000)
 
 @app.route("/api/rest/supply/total_all")
 def get_api_total_all():
-    data = 'test'
-    return data  #return jsonify({currency: value})
+    url = SUPPLY_TOTAL_ALL
+    parameters = {}
+    headers = {
+        'Accepts': 'application/json'
+    }
+    try:
+        session = Session()
+        session.headers.update(headers)
+        response = session.get(url, params=parameters)
+    except:
+        conn_error = 'An error occurred getting the BONDING data ' +  url
+        print("\n"+conn_error)
+        log_this(conn_error)
+    else:
+        info = json.loads(response.text)
+        # TO-DO: check if pagination.next_key <> null to iterate in results
+        return info
+        #return jsonify({currency: value})
 
 @app.route("/api/rest/supply/richlist")
 def get_api_total_richlist():
