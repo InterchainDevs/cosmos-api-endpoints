@@ -1,7 +1,8 @@
 from flask import Flask, jsonify
 from flask_cors import CORS
 from requests import Request, Session
-from time import strftime #, sleep
+from time import strftime, sleep
+import threading
 import json
 
 
@@ -95,12 +96,22 @@ def get_api_bonded():
 
 @app.route("/api") 
 def get_api_doc():
-    # inject the hmtl file as index/doc page
-    f = open(PATH + HTML_DOC)
-    return f
+    # inject the html file as index/doc page
+    with open(PATH + HTML_DOC) as f:
+        return f.read()
+
+
+def timer():
+    while True:
+        print("test")
+        sleep(5)
 
 if __name__ == "__main__":
-    app.run(debug=True, host=HOST, port=PORT)
+    # Iniciar la ejecución en segundo plano.
+    t = threading.Thread(target=timer)
+    t.start()
+    # Init Flask server
+    app.run(debug=True, host=HOST, port=PORT, use_reloader=False)
 
 
 #return jsonify({"error": "Currency not found"}), 404
