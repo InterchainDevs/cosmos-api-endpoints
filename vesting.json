@@ -1,0 +1,119 @@
+[
+    {
+        "@type": "/cosmos.vesting.v1beta1.DelayedVestingAccount",
+        "base_vesting_account": {
+            "base_account": {
+                "address": "bcna184wk75xjc0sn8krx9rzdtygm0dlncmt04k5ry9",
+                "pub_key": {
+                    "@type": "/cosmos.crypto.secp256k1.PubKey",
+                    "key": "AtuZnGsc5lVmoXWh2OHIERUYchb6HW9TjlsPImsESPu+"
+                },
+                "account_number": "4385",
+                "sequence": "1"
+            },
+            "original_vesting": [
+                {
+                    "denom": "ubcna",
+                    "amount": "39980876679100"
+                }
+            ],
+            "delegated_free": [],
+            "delegated_vesting": [],
+            "end_time": "1699540843"
+        }
+    },
+    {
+        "@type": "/cosmos.vesting.v1beta1.DelayedVestingAccount",
+        "base_vesting_account": {
+            "base_account": {
+                "address": "bcna12u6ktmmh34aeqgzayud8xsa4zaag2fxf622n5v",
+                "pub_key": {
+                    "@type": "/cosmos.crypto.secp256k1.PubKey",
+                    "key": "AhjDkZNDB12Mwgfq8CKSIeNDwJKBAAPMmvBE1VNeZ0UQ"
+                },
+                "account_number": "556",
+                "sequence": "3"
+            },
+            "original_vesting": [
+                {
+                    "denom": "ubcna",
+                    "amount": "39980876680000"
+                }
+            ],
+            "delegated_free": [],
+            "delegated_vesting": [],
+            "end_time": "1666962000"
+        }
+    },
+    {
+        "@type": "/cosmos.vesting.v1beta1.DelayedVestingAccount",
+        "base_vesting_account": {
+            "base_account": {
+                "address": "bcna1tdpec339xrucmmr4x73teu3lc2phq45mv07z9n",
+                "pub_key": null,
+                "account_number": "7308",
+                "sequence": "0"
+            },
+            "original_vesting": [
+                {
+                    "denom": "ubcna",
+                    "amount": "73759233662000"
+                }
+            ],
+            "delegated_free": [],
+            "delegated_vesting": [],
+            "end_time": "1731494879"
+        }
+    },
+    {
+        "@type": "/cosmos.vesting.v1beta1.DelayedVestingAccount",
+        "base_vesting_account": {
+            "base_account": {
+                "address": "bcna1wwkkxdrwddf7me8qhl9mg478ajf34py7ugyxng",
+                "pub_key": {
+                    "@type": "/cosmos.crypto.secp256k1.PubKey",
+                    "key": "A1GlqbQZAZic2TPnem/EcIbECsTY4uasfhRNZ7dwdxJJ"
+                },
+                "account_number": "4386",
+                "sequence": "63"
+            },
+            "original_vesting": [
+                {
+                    "denom": "ubcna",
+                    "amount": "33519123319700"
+                }
+            ],
+            "delegated_free": [],
+            "delegated_vesting": [
+                {
+                    "denom": "ubcna",
+                    "amount": "1"
+                }
+            ],
+            "end_time": "1699540843"
+        }
+    },
+    {
+        "@type": "/cosmos.vesting.v1beta1.DelayedVestingAccount",
+        "base_vesting_account": {
+            "base_account": {
+                "address": "bcna17s8qdu02hwep7lafla4kwkdlnqw3m29zdug0ag",
+                "pub_key": {
+                    "@type": "/cosmos.crypto.secp256k1.PubKey",
+                    "key": "Ah6vl/8Ebq0dycm0Zy4Ob6nNoX8aRiSiJ5DvO4GJVMmR"
+                },
+                "account_number": "555",
+                "sequence": "1"
+            },
+            "original_vesting": [
+                {
+                    "denom": "ubcna",
+                    "amount": "33519123320000"
+                }
+            ],
+            "delegated_free": [],
+            "delegated_vesting": [],
+            "end_time": "1666962000"
+        }
+    }
+]
