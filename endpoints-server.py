@@ -15,7 +15,7 @@ def log_this(log_info):
 app = Flask(__name__)
 CORS(app, max_age=404200, resources=r'/api/*', expose_headers='Content-Type: application/json', vary_header=True, methods='GET', origins='*')
 
-from config import HTML_DOC, PATH, HOST, PORT, CSV_LOG_OUTPUT_FILE, SUPPLY_BONDED, SUPPLY_TOTAL_DENOM, SUPPLY_TOTAL_ALL, RICHLIST_FILE
+from config import HTML_DOC, PATH, HOST, PORT, CSV_LOG_OUTPUT_FILE, SUPPLY_BONDED, SUPPLY_TOTAL_DENOM, SUPPLY_TOTAL_ALL, RICHLIST_FILE, BONDED_FILE
 
 
 
@@ -86,52 +86,6 @@ def get_api_doc():
 
 ####### End Flask endpoints
 
-#### Functions: Data for calculations 
-
-def get_total_vested():
-    return "test"
-
-def get_richlist():
-    return "test"
-
-def get_bonded_not_bonded_data():
-    url = SUPPLY_BONDED
-    parameters = {} # API parameters { 'ids': 'bitcanna', 'vs_currencies': 'usd' }
-    headers = {
-        'Accepts': 'application/json'
-    }
-    try:
-        session = Session()
-        session.headers.update(headers)
-        response = session.get(url, params=parameters)
-    except:
-        conn_error = 'An error occurred getting the BONDING data ' +  url
-        print("\n"+conn_error)
-        log_this(conn_error)
-    else:
-        info = json.loads(response.text)
-        bonded_tokens = info["pool"]["bonded_tokens"]
-        not_bonded_tokens = info["pool"]["not_bonded_tokens"]
-        return str(int(bonded_tokens) / 1000000), str(int(not_bonded_tokens) / 1000000)
-
-def get_total_supply_data():
-    url = SUPPLY_TOTAL_DENOM
-    parameters = {}
-    headers = {
-        'Accepts': 'application/json'
-    }
-    try:
-        session = Session()
-        session.headers.update(headers)
-        response = session.get(url, params=parameters)
-    except:
-        conn_error = 'An error occurred getting the Total Supply data ' +  url
-        print("\n"+conn_error)
-        log_this(conn_error)
-    else:
-        info = json.loads(response.text)
-        total_denom = info["amount"]["amount"]
-        return str(int(total_denom) / 1000000)
 
 
 
@@ -140,10 +94,6 @@ def get_calculated_data():
     while True:
         # get richlist and save in richlist.json
         print("test")
-        total_supply = get_total_supply_data()
-        print(total_supply)
-        bonded, not_bonded = get_bonded_not_bonded_data()
-        print(bonded, not_bonded)
         #rich()
         # get NOT EXPIRED vested accounts info and save in vested.json
         # total - non-bonded -vested = circulating.json
