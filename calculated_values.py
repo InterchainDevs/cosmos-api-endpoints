@@ -1,3 +1,4 @@
+#!/usr/bin/python
 from requests import Request, Session
 from time import strftime, sleep
 from datetime import datetime
@@ -131,7 +132,7 @@ def get_all_accounts():
                 #     msg = str(len(addresses)) + ' ' + address + ' Vesting finished'
                 #     print(msg)
                 #     log_this(msg)
-    return addresses, vesting, total_vesting
+    return addresses, vesting, (total_vesting / 1000000)
 
 def get_bonded_not_bonded_data():
     url = SUPPLY_BONDED
@@ -216,19 +217,24 @@ if __name__ == "__main__":
             print("\n"+conn_error)
             log_this(conn_error)
         else:
+            apr = ((float(total_supply) * inflation ) / float(bonded) ) * 100
+            apr_str = f"{apr:.2f}"
+            vested_str = f"{total_vesting:.6f}"
+            inflation_srt = f"{inflation:.2f}"
             entry = {
             "bonded": bonded,
             "not_bonded": not_bonded,
             "total_supply": total_supply,
-            "inflation": inflation,
-            "apr": ((float(total_supply) * inflation ) / float(bonded) ) * 100,
-            "total_vested": total_vesting
+            "inflation": inflation_srt,
+            "apr": apr_str,
+            "total_vested": vested_str
             }
             chain_params.append(entry)
             # Convertir la lista a una cadena JSON
         json_data = json.dumps(chain_params, indent=4)
         with open(CHAIN_FILE, "w") as json_file:
             json_file.write(json_data)
+        print('Chain data saved to JSON')
         # calculate the richlist
-        get_richlist()
+        #get_richlist()
         sleep(TIME_TO_SLEEP)
