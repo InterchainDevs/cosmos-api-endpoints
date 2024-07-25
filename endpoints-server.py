@@ -1,11 +1,10 @@
+#!/usr/bin/python
 from flask import Flask, jsonify
 from flask_cors import CORS
-from requests import Request, Session
+from requests import Session
 from time import strftime, sleep
-import threading
 import json
 
-#from richlist import rich
 
 def log_this(log_info):
     string_to_log = strftime('%d-%m-%Y-%H:%M') + ',"' + log_info + '"\n'
@@ -15,7 +14,7 @@ def log_this(log_info):
 app = Flask(__name__)
 CORS(app, max_age=404200, resources=r'/api/*', expose_headers='Content-Type: application/json', vary_header=True, methods='GET', origins='*')
 
-from config import HTML_DOC, PATH, HOST, PORT, CSV_LOG_OUTPUT_FILE, SUPPLY_BONDED, SUPPLY_TOTAL_DENOM, SUPPLY_TOTAL_ALL, RICHLIST_FILE, BONDED_FILE
+from config import HTML_DOC, PATH, HOST, PORT, CSV_LOG_OUTPUT_FILE, SUPPLY_TOTAL_ALL, RICHLIST_FILE, CHAIN_FILE, VESTING_FILE
 
 
 
@@ -23,18 +22,26 @@ from config import HTML_DOC, PATH, HOST, PORT, CSV_LOG_OUTPUT_FILE, SUPPLY_BONDE
 
 @app.route("/api/rest/supply/apr")
 def get_api_apr():
-    data = 'test'
-    return data  #return jsonify({currency: value})
+    # read the JSON's chain_metrics 
+    with open(CHAIN_FILE, 'r') as file:
+        data = json.load(file)
+    return jsonify(data)
 
 @app.route("/api/rest/supply/circulating")
 def get_api_circulating():
-    data = 'test'
-    return data  #return jsonify({currency: value})
+    # read the JSON's chain_metrics 
+    with open(CHAIN_FILE, 'r') as file:
+        data = json.load(file)
+        circulating = float(data["total_supply"]) - float(data["total_bonded"]) - float(data["total_vested"])
+        circulating_str = f"{circulating:.6f}"
+    return circulating_str
 
 @app.route("/api/rest/supply/total")
 def get_api_total():
-    data = 'test'
-    return data
+    # read the JSON's chain_metrics 
+    with open(CHAIN_FILE, 'r') as file:
+        data = json.load(file)
+    return data["total_supply"]
 
 @app.route("/api/rest/supply/total_all")
 def get_api_total_all():
@@ -65,7 +72,7 @@ def get_api_total_richlist():
     # Order data by key "balance"
     sorted_data = sorted(data, key=lambda x: x['balance'], reverse=True)
     
-    # Seleccionar los 100 primeros registros
+    # Select the first 100 registries
     top_100 = sorted_data[:100]
     
     #return json.dumps(top_100, indent=4)
@@ -73,10 +80,21 @@ def get_api_total_richlist():
 
 @app.route("/api/rest/supply/bonded")
 def get_api_bonded():
-    data = 'test'
-    return data
-        #return jsonify({'value': response})
+    # read the JSON's chain_metrics 
+    with open(CHAIN_FILE, 'r') as file:
+        data = json.load(file)
+    return data["total_bonded"]
 
+@app.route("/api/rest/supply/not_bonded")
+def get_api_bonded():
+    # read the JSON's chain_metrics 
+    with open(CHAIN_FILE, 'r') as file:
+        data = json.load(file)
+    return data["not_bonded"]
+
+# TO-DO /api/rest/supply/vested
+#
+# show all active accounts vested with amount and end_date(both unix stamp & human) & total_count
 
 @app.route("/api") 
 def get_api_doc():
@@ -86,26 +104,6 @@ def get_api_doc():
 
 ####### End Flask endpoints
 
-
-
-
-
-def get_calculated_data():
-    while True:
-        # get richlist and save in richlist.json
-        print("test")
-        #rich()
-        # get NOT EXPIRED vested accounts info and save in vested.json
-        # total - non-bonded -vested = circulating.json
-        sleep(30)
-
 if __name__ == "__main__":
-    # Iniciar la ejecución en segundo plano.
-    t = threading.Thread(target=get_calculated_data)
-    t.start()
     # Init Flask server
     app.run(debug=True, host=HOST, port=PORT, use_reloader=False)
-
-
-#return jsonify({"error": "Currency not found"}), 404
-#return jsonify({currency: value})
