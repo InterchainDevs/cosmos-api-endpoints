@@ -232,16 +232,15 @@ if __name__ == "__main__":
             vested_str = f"{total_vesting:.6f}"
             inflation_srt = f"{inflation:.2f}"
             entry = {
-            "bonded": bonded,
-            "not_bonded": not_bonded,
             "total_supply": total_supply,
             "inflation": inflation_srt,
+            "total_bonded": bonded,
             "apr": apr_str,
+            "not_bonded": not_bonded,
             "total_vested": vested_str
             }
-            chain_params.append(entry)
             # Convertir la lista a una cadena JSON
-        json_data = json.dumps(chain_params, indent=4)
+        json_data = json.dumps(entry, indent=4)
         with open(CHAIN_FILE, "w") as json_file:
             json_file.write(json_data)
         print('Chain data saved to JSON')
