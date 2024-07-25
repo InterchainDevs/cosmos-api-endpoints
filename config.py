@@ -9,7 +9,7 @@ CHAIN_FILE = 'chain_metrics.json'
 HTML_DOC = 'index.html'
 HOST= '0.0.0.0'
 PORT= 40420
-TIME_TO_SLEEP = 30 * 60 # 30 minutes
+TIME_TO_SLEEP = 60 * 60 # 1 hour
 
 # Chain config
 LCD = 'https://lcd.bitcanna.io'
