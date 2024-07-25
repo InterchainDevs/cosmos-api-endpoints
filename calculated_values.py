@@ -78,7 +78,7 @@ def get_all_accounts():
             if reg["@type"] == "/cosmos.auth.v1beta1.BaseAccount":
                 address = reg["address"]
                 addresses.append(address)
-                # print(str(len(addresses)) + ' ' + address)
+                print(str(len(addresses)) + ' ' + address)
             if reg["@type"] == "/cosmos.vesting.v1beta1.DelayedVestingAccount":
                 address = reg["base_vesting_account"]["base_account"]["address"]
                 addresses.append(address)
@@ -88,6 +88,12 @@ def get_all_accounts():
                 current_time = datetime.now()
                 if end_time > current_time:
                     total_vesting = int(total_vesting) + int(reg["base_vesting_account"]["original_vesting"][0]["amount"])
+                    msg = str(len(addresses)) + ' ' + address + ' Vesting active'
+                    log_this(msg)
+                    # log_this(str(total_vesting))
+                else:
+                    msg = str(len(addresses)) + ' ' + address + ' Vesting finished'
+                    # log_this(msg)
         # print(pagination)
         sleep(3)
         while pagination != None:
@@ -96,7 +102,7 @@ def get_all_accounts():
                 if reg["@type"] == "/cosmos.auth.v1beta1.BaseAccount":
                     address = reg["address"]
                     addresses.append(address)
-                    # print(str(len(addresses)) + ' ' + address)
+                    print(str(len(addresses)) + ' ' + address)
                 if reg["@type"] == "/cosmos.vesting.v1beta1.DelayedVestingAccount":
                     address = reg["base_vesting_account"]["base_account"]["address"]
                     addresses.append(address)
@@ -106,6 +112,12 @@ def get_all_accounts():
                     current_time = datetime.now()
                     if end_time > current_time:
                         total_vesting = int(total_vesting) + int(reg["base_vesting_account"]["original_vesting"][0]["amount"])
+                        msg = str(len(addresses)) + ' ' + address + ' Vesting active'
+                        log_this(msg)
+                        # log_this(str(total_vesting))
+                    else:
+                        msg = str(len(addresses)) + ' ' + address + ' Vesting finished'
+                        # log_this(msg)
             # print(pagination)
             sleep(3)
             pagination = info["pagination"]["next_key"]
@@ -124,14 +136,12 @@ def get_all_accounts():
                 current_time = datetime.now()
                 if end_time > current_time:
                     total_vesting = int(total_vesting) + int(reg["base_vesting_account"]["original_vesting"][0]["amount"])
-                    # msg = str(len(addresses)) + ' ' + address + ' Vesting active'
-                    # print(msg)
-                    # log_this(msg)
+                    msg = str(len(addresses)) + ' ' + address + ' Vesting active'
+                    log_this(msg)
                     # log_this(str(total_vesting))
-                # else:
-                #     msg = str(len(addresses)) + ' ' + address + ' Vesting finished'
-                #     print(msg)
-                #     log_this(msg)
+                else:
+                    msg = str(len(addresses)) + ' ' + address + ' Vesting finished'
+                    # log_this(msg)
     return addresses, vesting, (total_vesting / 1000000)
 
 def get_bonded_not_bonded_data():
@@ -236,5 +246,5 @@ if __name__ == "__main__":
             json_file.write(json_data)
         print('Chain data saved to JSON')
         # calculate the richlist
-        #get_richlist()
+        get_richlist()
         sleep(TIME_TO_SLEEP)
