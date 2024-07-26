@@ -8,13 +8,13 @@ import json
 
 def log_this(log_info):
     string_to_log = strftime('%d-%m-%Y-%H:%M') + ',"' + log_info + '"\n'
-    file_log = open(PATH + CSV_LOG_OUTPUT_FILE, "a")
+    file_log = open(CSV_LOG_OUTPUT_FILE, "a")
     file_log.write (string_to_log)
 
 app = Flask(__name__)
 CORS(app, max_age=404200, resources=r'/api/*', expose_headers='Content-Type: application/json', vary_header=True, methods='GET', origins='*')
 
-from config import HTML_DOC, PATH, HOST, PORT, CSV_LOG_OUTPUT_FILE, SUPPLY_TOTAL_ALL, RICHLIST_FILE, CHAIN_FILE, VESTING_FILE
+from config import HTML_DOC, HOST, PORT, CSV_LOG_OUTPUT_FILE, SUPPLY_TOTAL_ALL, RICHLIST_FILE, CHAIN_FILE, VESTING_FILE
 
 
 
@@ -99,7 +99,7 @@ def get_api_not_bonded():
 @app.route("/api") 
 def get_api_doc():
     # inject the html file as index/doc page
-    with open(PATH + HTML_DOC) as f:
+    with open(HTML_DOC) as f:
         return f.read()
 
 ####### End Flask endpoints
