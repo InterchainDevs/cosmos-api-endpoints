@@ -86,7 +86,7 @@ def get_api_bonded():
     return data["total_bonded"]
 
 @app.route("/api/rest/supply/not_bonded")
-def get_api_bonded():
+def get_api_not_bonded():
     # read the JSON's chain_metrics 
     with open(CHAIN_FILE, 'r') as file:
         data = json.load(file)
