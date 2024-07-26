@@ -2,11 +2,11 @@
 
 # Server config
 PATH = './' # Production: '/var/www/endpoints/'
-CSV_LOG_OUTPUT_FILE = 'log.csv'
-RICHLIST_FILE = 'richlist.json'
-VESTING_FILE = 'vesting.json'
-CHAIN_FILE = 'chain_metrics.json'
-HTML_DOC = 'index.html'
+CSV_LOG_OUTPUT_FILE = PATH + 'log.csv'
+RICHLIST_FILE = PATH + 'richlist.json'
+VESTING_FILE = PATH + 'vesting.json'
+CHAIN_FILE = PATH + 'chain_metrics.json'
+HTML_DOC = PATH + 'index.html'
 HOST= '0.0.0.0'
 PORT= 3030
 TIME_TO_SLEEP = 60 * 60 # 1 hour
