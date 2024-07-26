@@ -36,7 +36,7 @@ python3 endpoints-server.py
  Enable and activate the `endpoints-server` service.
 ```bash
 sudo mv endpoints-server.service /lib/systemd/system/
-sudo systemctl enable endpoints-server.service && sudo systemctl start bendpoints-server.service
+sudo systemctl enable endpoints-server.service && sudo systemctl start endpoints-server.service
 ```
 Check the logs to see if everything is working correct:
 ```bash
