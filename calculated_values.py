@@ -4,13 +4,13 @@ from time import strftime, sleep
 from datetime import datetime
 import json
 
-from config import SUPPLY_RICHLIST, SUPPLY_ACCOUNTS, PATH, CSV_LOG_OUTPUT_FILE, DENOM, RICHLIST_FILE, VESTING_FILE, TIME_TO_SLEEP, SUPPLY_BONDED, CHAIN_FILE, SUPPLY_TOTAL_DENOM, INFLATION
+from config import SUPPLY_RICHLIST, SUPPLY_ACCOUNTS, CSV_LOG_OUTPUT_FILE, DENOM, RICHLIST_FILE, VESTING_FILE, TIME_TO_SLEEP, SUPPLY_BONDED, CHAIN_FILE, SUPPLY_TOTAL_DENOM, INFLATION
 
 
 
 def log_this(log_info):
     string_to_log = strftime('%d-%m-%Y-%H:%M') + ',"' + log_info + '"\n'
-    file_log = open(PATH + CSV_LOG_OUTPUT_FILE, "a")
+    file_log = open(CSV_LOG_OUTPUT_FILE, "a")
     file_log.write (string_to_log)
 
 def get_richlist():
