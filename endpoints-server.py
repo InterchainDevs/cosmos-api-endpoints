@@ -106,4 +106,4 @@ def get_api_doc():
 
 if __name__ == "__main__":
     # Init Flask server
-    app.run(debug=True, host=HOST, port=PORT, use_reloader=False)
+    app.run(debug=False, host=HOST, port=PORT, use_reloader=False)
